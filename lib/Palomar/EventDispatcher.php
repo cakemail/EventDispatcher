@@ -32,8 +32,7 @@ class EventDispatcher
 
         if(array_key_exists($eventName, $this->subscriptions)) {
             foreach($this->subscriptions[$eventName] as $subscriber) {
-                $callback = array($subscriber, 'notify');
-                call_user_func_array($callback, $args);
+                call_user_func_array(array($subscriber, 'notify'), $args);
             }
         }
     }
