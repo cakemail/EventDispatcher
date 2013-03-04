@@ -9,7 +9,7 @@ class EventDispatcher
 {
     protected $subscriptions = array();
 
-    public function attach(SubscriberInterface $subscriber)
+    public function attach(AbstractSubscriber $subscriber)
     {
         $subscriptions = $subscriber->getSubscriptions();
 
@@ -28,11 +28,9 @@ class EventDispatcher
 
     public function notify($eventName)
     {
-        $args = array_slice(func_get_args(), 1);
-
         if(array_key_exists($eventName, $this->subscriptions)) {
             foreach($this->subscriptions[$eventName] as $subscriber) {
-                call_user_func_array(array($subscriber, 'notify'), $args);
+                call_user_func_array(array($subscriber, 'notify'), func_get_args());
             }
         }
     }
