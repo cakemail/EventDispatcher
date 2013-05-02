@@ -6,7 +6,7 @@ class ObserverTest extends PHPUnit_Framework_TestCase
     public function testGetsSubscriptionsFromSubscriber()
     {
         $observer = new Palomar\EventDispatcher;
-        $subscriber = $this->getMock('Palomar\SubscriberInterface');
+        $subscriber = $this->getMock('Palomar\AbstractSubscriber');
         
         $subscriber->expects($this->once())
              ->method('getSubscriptions')
@@ -20,7 +20,7 @@ class ObserverTest extends PHPUnit_Framework_TestCase
     public function testRegistersSubscriptionsFromSubscriber()
     {
         $observer = new Palomar\EventDispatcher;
-        $subscriber = $this->getMock('Palomar\SubscriberInterface');
+        $subscriber = $this->getMock('Palomar\AbstractSubscriber');
         
         $subscriber->expects($this->once())
              ->method('getSubscriptions')
@@ -35,7 +35,7 @@ class ObserverTest extends PHPUnit_Framework_TestCase
     public function testSubscriberGetsNotified()
     {
         $observer = new Palomar\EventDispatcher;
-        $subscriber = $this->getMock('Palomar\SubscriberInterface');
+        $subscriber = $this->getMock('Palomar\AbstractSubscriber');
         
         $subscriber->expects($this->once())
              ->method('getSubscriptions')
@@ -50,10 +50,10 @@ class ObserverTest extends PHPUnit_Framework_TestCase
         $observer->notify('user.login');
     }
 
-    public function testSubscriberGetsAtguments()
+    public function testSubscriberGetsArguments()
     {
         $observer = new Palomar\EventDispatcher;
-        $subscriber = $this->getMock('Palomar\SubscriberInterface');
+        $subscriber = $this->getMock('Palomar\AbstractSubscriber');
         
         $subscriber->expects($this->once())
              ->method('getSubscriptions')
@@ -63,7 +63,7 @@ class ObserverTest extends PHPUnit_Framework_TestCase
 
          $subscriber->expects($this->once())
               ->method('notify')
-              ->with(array(1, 'wkjagt@gmail.com'));
+              ->with('user.login', array(1, 'wkjagt@gmail.com'));
 
         $observer->attach($subscriber);
         $observer->notify('user.login', array(1, 'wkjagt@gmail.com'));
@@ -72,7 +72,7 @@ class ObserverTest extends PHPUnit_Framework_TestCase
     public function testSubscriberNotCalled()
     {
         $observer = new Palomar\EventDispatcher;
-        $subscriber = $this->getMock('Palomar\SubscriberInterface');
+        $subscriber = $this->getMock('Palomar\AbstractSubscriber');
         
         $subscriber->expects($this->once())
              ->method('getSubscriptions')
