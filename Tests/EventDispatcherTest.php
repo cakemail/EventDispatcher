@@ -1,5 +1,8 @@
 <?php
 
+require_once __DIR__.'/../lib/Palomar/AbstractSubscriber.php';
+require_once __DIR__.'/../lib/Palomar/EventDispatcher.php';
+
 class ObserverTest extends PHPUnit_Framework_TestCase
 {
 
